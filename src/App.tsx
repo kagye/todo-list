@@ -86,7 +86,7 @@ function App() {
           onKeyDown={handleOnEnterPressed}
           ref={inputRef}
           type="text"
-          placeholder="description"
+          placeholder="new todo"
         ></input>
         <button onClick={handleAddItem}>Add to list</button>
         <TodoDisplay onChecked={handleCheckedItem} onClick={handleDeleteItem}>
