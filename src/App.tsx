@@ -12,6 +12,16 @@ function App() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [todos, setTodos] = useState<TodoItem[]>([]);
 
+  const handleDeleteItem = (id: number) => {
+    setTodos((previousTodos) => previousTodos.filter((todo) => todo.id !== id));
+  };
+  const handleOnEnterPressed = (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (event.key === 'Enter') {
+      handleAddItem();
+    }
+  };
   const handleAddItem = () => {
     if (!inputRef.current) {
       return;
@@ -40,9 +50,14 @@ function App() {
   return (
     <div className="App">
       <h1>Todo List</h1>
-      <input ref={inputRef} type="text" placeholder="No todo yet"></input>
+      <input
+        onKeyDown={handleOnEnterPressed}
+        ref={inputRef}
+        type="text"
+        placeholder="No todo yet"
+      ></input>
       <button onClick={handleAddItem}>Add to list</button>
-      <TodoDisplay>{todos}</TodoDisplay>
+      <TodoDisplay onClick={handleDeleteItem}>{todos}</TodoDisplay>
     </div>
   );
 }
