@@ -22,3 +22,10 @@
 
   filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#F9C58D", endColorstr="#F492F0", GradientType=1 );
 }
+table {
+  margin-top: 2em;
+}
+
+tr td:nth-child(2) {
+  min-width: 10em;
+}
