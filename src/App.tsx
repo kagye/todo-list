@@ -22,7 +22,6 @@ function App() {
       saveToLocalStorage(newTodos);
       return newTodos;
     });
-    saveToLocalStorage(todos);
   };
   const handleOnEnterPressed = (
     event: React.KeyboardEvent<HTMLInputElement>
