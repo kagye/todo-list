@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import './App.css';
 import TodoDisplay from './components/TodoDisplay';
 
@@ -12,8 +12,17 @@ function App() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [todos, setTodos] = useState<TodoItem[]>([]);
 
+  useEffect(() => {
+    retrieveFromLocalStoage();
+  }, []);
+
   const handleDeleteItem = (id: number) => {
-    setTodos((previousTodos) => previousTodos.filter((todo) => todo.id !== id));
+    setTodos((previousTodos) => {
+      let newTodos = previousTodos.filter((todo) => todo.id !== id);
+      saveToLocalStorage(newTodos);
+      return newTodos;
+    });
+    saveToLocalStorage(todos);
   };
   const handleOnEnterPressed = (
     event: React.KeyboardEvent<HTMLInputElement>
@@ -22,6 +31,7 @@ function App() {
       handleAddItem();
     }
   };
+
   const handleAddItem = () => {
     if (!inputRef.current) {
       return;
@@ -39,25 +49,51 @@ function App() {
       return;
     }
     let maxId = todos[todos.length - 1]?.id ?? 0;
-    setTodos((previousTodo) => [
-      ...previousTodo,
-      { id: maxId + 1, description: todoDescription, completed: false },
-    ]);
+    setTodos((previousTodo) => {
+      let newTodos = [
+        ...previousTodo,
+        { id: maxId + 1, description: todoDescription, completed: false },
+      ];
+      saveToLocalStorage(newTodos);
+      return newTodos;
+    });
 
     inputRef.current.value = '';
   };
 
+  const handleCheckedItem = (id: number) => {
+    let newTodos = todos.map((item) =>
+      item.id === id ? { ...item, completed: !item.completed } : item
+    );
+    setTodos([...newTodos]);
+    saveToLocalStorage(newTodos);
+  };
+
+  const saveToLocalStorage = (items: TodoItem[]) => {
+    localStorage.setItem('todos', JSON.stringify(items));
+  };
+
+  const retrieveFromLocalStoage = () => {
+    let retrievedValue = localStorage.getItem('todos');
+    let serializedTodos: TodoItem[] = JSON.parse(retrievedValue ?? '[]');
+    setTodos([...serializedTodos]);
+  };
+
   return (
     <div className="App">
-      <h1>Todo List</h1>
-      <input
-        onKeyDown={handleOnEnterPressed}
-        ref={inputRef}
-        type="text"
-        placeholder="No todo yet"
-      ></input>
-      <button onClick={handleAddItem}>Add to list</button>
-      <TodoDisplay onClick={handleDeleteItem}>{todos}</TodoDisplay>
+      <div className="todolist">
+        <h1>Todo List</h1>
+        <input
+          onKeyDown={handleOnEnterPressed}
+          ref={inputRef}
+          type="text"
+          placeholder="No todo yet"
+        ></input>
+        <button onClick={handleAddItem}>Add to list</button>
+        <TodoDisplay onChecked={handleCheckedItem} onClick={handleDeleteItem}>
+          {todos}
+        </TodoDisplay>
+      </div>
     </div>
   );
 }

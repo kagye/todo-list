@@ -3,16 +3,21 @@ import { TodoItem } from '../App';
 interface Props {
   children: TodoItem[];
   onClick: (id: number) => void;
+  onChecked: (id: number) => void;
 }
 
-const TodoDisplay = ({ children, onClick }: Props) => {
+const TodoDisplay = ({ children, onClick, onChecked }: Props) => {
   return (
     <table>
       <tbody>
         {children.map((item) => (
           <tr key={item.id}>
             <td>
-              <input type="checkbox"></input>
+              <input
+                onChange={() => onChecked(item.id)}
+                checked={item.completed}
+                type="checkbox"
+              ></input>
             </td>
             <td>{item.description}</td>
             <td>
