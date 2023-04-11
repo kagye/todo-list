@@ -59,6 +59,12 @@ function App() {
     });
 
     inputRef.current.value = '';
+    inputRef.current.focus();
+  };
+
+  const handleClearAllItem = () => {
+    setTodos([]);
+    saveToLocalStorage([]);
   };
 
   const handleCheckedItem = (id: number) => {
@@ -82,7 +88,7 @@ function App() {
   return (
     <div className="App">
       <div className="todolist">
-        <VStack>
+        <VStack spacing="1em">
           <Text as="b" fontSize="2xl">
             Todo List
           </Text>
@@ -96,6 +102,7 @@ function App() {
             placeholder="new todo"
             variant="filled"
             size="sm"
+            outline="solid 1px teal"
           ></Input>
           <Button
             colorScheme="blue"
@@ -105,10 +112,21 @@ function App() {
           >
             Add to list
           </Button>
+
+          <TodoDisplay onChecked={handleCheckedItem} onClick={handleDeleteItem}>
+            {todos}
+          </TodoDisplay>
+          {todos.length > 0 && (
+            <Button
+              colorScheme="red"
+              size="sm"
+              variant="solid"
+              onClick={handleClearAllItem}
+            >
+              clear
+            </Button>
+          )}
         </VStack>
-        <TodoDisplay onChecked={handleCheckedItem} onClick={handleDeleteItem}>
-          {todos}
-        </TodoDisplay>
       </div>
     </div>
   );
