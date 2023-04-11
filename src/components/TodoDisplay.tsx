@@ -24,6 +24,7 @@ const TodoDisplay = ({ children, onClick, onChecked }: Props) => {
             <Tr key={item.id}>
               <Td>
                 <Checkbox
+                  colorScheme="green"
                   onChange={() => onChecked(item.id)}
                   isChecked={item.completed}
                 />

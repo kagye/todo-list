@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import './App.css';
 import TodoDisplay from './components/TodoDisplay';
-import { Button, Input, VStack } from '@chakra-ui/react';
+import { Button, Input, VStack, Text } from '@chakra-ui/react';
 
 export interface TodoItem {
   id: number;
@@ -83,8 +83,13 @@ function App() {
     <div className="App">
       <div className="todolist">
         <VStack>
-          <h1>Todo List</h1>
+          <Text as="b" fontSize="2xl">
+            Todo List
+          </Text>
           <Input
+            borderRadius="8px"
+            width="15em"
+            className="entry"
             onKeyDown={handleOnEnterPressed}
             ref={inputRef}
             type="text"
