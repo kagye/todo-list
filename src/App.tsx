@@ -123,7 +123,7 @@ function App() {
               variant="solid"
               onClick={handleClearAllItem}
             >
-              clear
+              Clear
             </Button>
           )}
         </VStack>
