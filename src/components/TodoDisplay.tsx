@@ -24,13 +24,19 @@ const TodoDisplay = ({ children, onClick, onChecked }: Props) => {
             <Tr key={item.id}>
               <Td>
                 <Checkbox
-                  outline="solid blue 1px"
+                  outline="solid green 1px"
                   colorScheme="green"
                   onChange={() => onChecked(item.id)}
                   isChecked={item.completed}
+                  borderRadius="2px"
                 />
               </Td>
-              <Td onClick={() => onChecked(item.id)}>{item.description}</Td>
+              <Td
+                className={` ${item.completed && 'completed'}`}
+                onClick={() => onChecked(item.id)}
+              >
+                {item.description}
+              </Td>
               <Td>
                 <Button
                   colorScheme="pink"
