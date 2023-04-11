@@ -1,5 +1,14 @@
 import React from 'react';
 import { TodoItem } from '../App';
+import {
+  Button,
+  Checkbox,
+  Table,
+  Tbody,
+  Tr,
+  Td,
+  TableContainer,
+} from '@chakra-ui/react';
 interface Props {
   children: TodoItem[];
   onClick: (id: number) => void;
@@ -8,25 +17,33 @@ interface Props {
 
 const TodoDisplay = ({ children, onClick, onChecked }: Props) => {
   return (
-    <table>
-      <tbody>
-        {children.map((item) => (
-          <tr key={item.id}>
-            <td>
-              <input
-                onChange={() => onChecked(item.id)}
-                checked={item.completed}
-                type="checkbox"
-              ></input>
-            </td>
-            <td>{item.description}</td>
-            <td>
-              <button onClick={() => onClick(item.id)}>Delete</button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <TableContainer>
+      <Table size="sm" variant="simple">
+        <Tbody>
+          {children.map((item) => (
+            <Tr key={item.id}>
+              <Td>
+                <Checkbox
+                  onChange={() => onChecked(item.id)}
+                  isChecked={item.completed}
+                />
+              </Td>
+              <Td onClick={() => onChecked(item.id)}>{item.description}</Td>
+              <Td>
+                <Button
+                  colorScheme="pink"
+                  size="xs"
+                  variant="outline"
+                  onClick={() => onClick(item.id)}
+                >
+                  Delete
+                </Button>
+              </Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+    </TableContainer>
   );
 };
 

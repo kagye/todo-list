@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import './App.css';
 import TodoDisplay from './components/TodoDisplay';
+import { Button, Input, VStack } from '@chakra-ui/react';
 
 export interface TodoItem {
   id: number;
@@ -81,14 +82,25 @@ function App() {
   return (
     <div className="App">
       <div className="todolist">
-        <h1>Todo List</h1>
-        <input
-          onKeyDown={handleOnEnterPressed}
-          ref={inputRef}
-          type="text"
-          placeholder="new todo"
-        ></input>
-        <button onClick={handleAddItem}>Add to list</button>
+        <VStack>
+          <h1>Todo List</h1>
+          <Input
+            onKeyDown={handleOnEnterPressed}
+            ref={inputRef}
+            type="text"
+            placeholder="new todo"
+            variant="filled"
+            size="sm"
+          ></Input>
+          <Button
+            colorScheme="blue"
+            size="sm"
+            variant="solid"
+            onClick={handleAddItem}
+          >
+            Add to list
+          </Button>
+        </VStack>
         <TodoDisplay onChecked={handleCheckedItem} onClick={handleDeleteItem}>
           {todos}
         </TodoDisplay>
