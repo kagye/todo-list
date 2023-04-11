@@ -24,6 +24,7 @@ function App() {
       return newTodos;
     });
   };
+
   const handleOnEnterPressed = (
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
@@ -37,17 +38,19 @@ function App() {
       return;
     }
 
-    let todoDescription = inputRef.current.value;
-    if (
+    let todoDescription = inputRef.current.value.trim();
+    let invalidTodoItem =
       !inputRef.current.value ||
       todos.some(
         (todo) =>
           todo.description.toLocaleLowerCase() ===
           todoDescription.toLocaleLowerCase()
-      )
-    ) {
+      );
+
+    if (invalidTodoItem) {
       return;
     }
+
     let maxId = todos[todos.length - 1]?.id ?? 0;
     setTodos((previousTodo) => {
       let newTodos = [
