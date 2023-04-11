@@ -1,4 +1,4 @@
-:root {
+/* .nothing {
   background: hsla(31, 90%, 76%, 1);
   height: 100vh;
 
@@ -21,7 +21,8 @@
   );
 
   filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#F9C58D", endColorstr="#F492F0", GradientType=1 );
-}
+} */
+
 table {
   margin-top: 2em;
 }
