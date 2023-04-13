@@ -55,7 +55,13 @@ function App() {
     setTodos((previousTodo) => {
       let newTodos = [
         ...previousTodo,
-        { id: maxId + 1, description: todoDescription, completed: false },
+        {
+          id: maxId + 1,
+          description:
+            todoDescription.charAt(0).toUpperCase() +
+            todoDescription.slice(1).toLowerCase(),
+          completed: false,
+        },
       ];
       saveToLocalStorage(newTodos);
       return newTodos;
